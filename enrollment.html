@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Enrollment - Aspire Impact Network</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .enrollment-container {
+            min-height: 70vh;
+            padding: 4rem 0;
+            background: #f9fafb;
+        }
+        .enrollment-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .enrollment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .enrollment-header h1 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        .plan-summary {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .plan-summary h3 {
+            color: #10b981;
+            margin-bottom: 0.5rem;
+        }
+        .plan-summary .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .form-group small {
+            display: block;
+            margin-top: 0.25rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        .required {
+            color: #ef4444;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 0.25rem;
+        }
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover {
+            background: #059669;
+        }
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #6b7280;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h2>Aspire Impact Network</h2>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="justice-support.html" class="nav-link">Justice Support</a></li>
+                    <li><a href="digital-solutions.html" class="nav-link">Digital Solutions</a></li>
+                    <li><a href="membership.html" class="nav-link active">Membership</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="enrollment-container">
+            <div class="container">
+                <div class="enrollment-card">
+                    <div class="enrollment-header">
+                        <h1>Complete Your Enrollment</h1>
+                        <p>Just a few details to get you started</p>
+                    </div>
+
+                    <div class="plan-summary" id="plan-summary">
+                        <h3 id="plan-name">Premier Membership</h3>
+                        <div class="price" id="plan-price">$25/month</div>
+                        <p id="plan-description">Enhanced access for active community members</p>
+                    </div>
+
+                    <form id="enrollment-form">
+                        <div class="form-group">
+                            <label for="full-name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="full-name" name="full-name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                            <small>We'll send your membership confirmation and login details here</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="organization">Organization/Company (if applicable)</label>
+                            <input type="text" id="organization" name="organization">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role">Your Role/Title</label>
+                            <input type="text" id="role" name="role">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interest">What are you most interested in? <span class="required">*</span></label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select an option</option>
+                                <option value="justice-support">Justice Support & Family Services</option>
+                                <option value="digital-solutions">Digital Solutions & Marketing</option>
+                                <option value="community-networking">Community Networking</option>
+                                <option value="training-resources">Training & Resources</option>
+                                <option value="all">All of the above</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="goals">What do you hope to achieve with your membership?</label>
+                            <textarea id="goals" name="goals" rows="3" placeholder="Optional: Share your goals or what you're looking forward to..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="referral">How did you hear about us?</label>
+                            <select id="referral" name="referral">
+                                <option value="">Select an option</option>
+                                <option value="search">Search Engine</option>
+                                <option value="social">Social Media</option>
+                                <option value="referral">Friend/Colleague Referral</option>
+                                <option value="event">Event or Conference</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="newsletter" name="newsletter" checked>
+                                <label for="newsletter">Yes, I want to receive monthly newsletters and updates</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">I agree to the <a href="#" style="color: #10b981;">Terms of Service</a> and <a href="#" style="color: #10b981;">Privacy Policy</a> <span class="required">*</span></label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            Complete Enrollment & Proceed to Payment
+                        </button>
+
+                        <a href="membership.html" class="back-link">← Back to Membership Plans</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Aspire Impact Network</h3>
+                    <p>Empowering people, elevating business, creating impact in Geneva, Nebraska and beyond.</p>
+                    <div class="footer-contact">
+                        <p>📞 (402) 759-2210</p>
+                        <p>✉️ brandon.hinrichs@aspireimpactnetwork.com</p>
+                        <p>📍 Geneva, Nebraska</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Aspire Impact Network. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="js/enrollment.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

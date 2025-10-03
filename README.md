@@ -20,7 +20,7 @@ This website serves as the digital presence for Aspire Impact Network, a dual-fo
 
 ### ⚖️ Justice Support Programs
 - Family Partner program details
-- Domestic Violence classes (Duluth Model, 30-week program)
+- Domestic Violence classes (Duluth Model, 36-week program)
 - Pricing: $35 intake + $30/session
 - Reentry and crisis support services
 
