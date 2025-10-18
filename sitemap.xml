@@ -49,4 +49,26 @@
         <priority>0.7</priority>
     </url>
     
+    <!-- Form Pages -->
+    <url>
+        <loc>https://aspireimpactnetwork.com/justice-support-request.html</loc>
+        <lastmod>2025-01-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://aspireimpactnetwork.com/dv-classes-enrollment.html</loc>
+        <lastmod>2025-01-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://aspireimpactnetwork.com/membership-signup.html</loc>
+        <lastmod>2025-01-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
 </urlset>
