@@ -61,20 +61,20 @@
         </section>
 
         <!-- Program Info -->
-        <section class="program-info" style="padding: 2rem 0; background: #f9fafb;">
+        <section class="program-info" style="padding: 2rem 0; background: rgba(10, 15, 10, 0.5);">
             <div class="container">
                 <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto;">
-                    <div class="info-card" style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div class="info-card" style="background: rgba(15, 31, 15, 0.8); padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                         <h3 style="color: #10b981; margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 600;">Program Length</h3>
-                        <p style="margin: 0; color: #1f2937; font-size: 1rem;">36 weeks</p>
+                        <p style="margin: 0; color: #e0ffe0; font-size: 1rem;">36 weeks</p>
                     </div>
-                    <div class="info-card" style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div class="info-card" style="background: rgba(15, 31, 15, 0.8); padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                         <h3 style="color: #10b981; margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 600;">Class Schedule</h3>
-                        <p style="margin: 0; color: #1f2937; font-size: 1rem;">To be determined</p>
+                        <p style="margin: 0; color: #e0ffe0; font-size: 1rem;">To be determined</p>
                     </div>
-                    <div class="info-card" style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <div class="info-card" style="background: rgba(15, 31, 15, 0.8); padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                         <h3 style="color: #10b981; margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 600;">Format</h3>
-                        <p style="margin: 0; color: #1f2937; font-size: 1rem;">In-person only</p>
+                        <p style="margin: 0; color: #e0ffe0; font-size: 1rem;">In-person only</p>
                     </div>
                 </div>
             </div>
@@ -366,6 +366,7 @@
         </div>
     </footer>
 
+    <script src="js/supabase-config.js"></script>
     <script src="js/main.js"></script>
     <script>
         // Show/hide court info based on enrollment type
@@ -383,16 +384,70 @@
         // Form submission handler
         document.getElementById('dvEnrollmentForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Here you would typically send to your backend
-            console.log('DV Classes Enrollment:', data);
-            
-            // Show success message and redirect
-            alert('Thank you for your enrollment application. We will contact you within 48 hours to schedule your intake assessment.');
-            window.location.href = 'success.html?type=dv-enrollment';
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+
+            // Show loading state
+            submitButton.textContent = 'Submitting Application...';
+            submitButton.disabled = true;
+
+            try {
+                // Initialize Supabase if not already done
+                if (!window.supabase) {
+                    await initializeSupabase();
+                }
+
+                const formData = new FormData(this);
+                const data = {
+                    firstName: formData.get('firstName'),
+                    middleName: formData.get('middleName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    dob: formData.get('dob'),
+                    ssn: formData.get('ssn'),
+                    address: formData.get('address'),
+                    city: formData.get('city'),
+                    state: formData.get('state'),
+                    zip: formData.get('zip'),
+                    enrollmentType: formData.get('enrollmentType'),
+                    courtInfo: formData.get('courtInfo'),
+                    probationOfficer: formData.get('probationOfficer'),
+                    probationContact: formData.get('probationContact'),
+                    attorney: formData.get('attorney'),
+                    attorneyContact: formData.get('attorneyContact'),
+                    preferredSchedule: formData.get('preferredSchedule'),
+                    classFormat: formData.get('classFormat'),
+                    employmentStatus: formData.get('employmentStatus'),
+                    insurance: formData.get('insurance'),
+                    paymentAbility: formData.get('paymentAbility'),
+                    priorTreatment: formData.get('priorTreatment'),
+                    substanceUse: formData.get('substanceUse'),
+                    mentalHealth: formData.get('mentalHealth'),
+                    emergencyContact: formData.get('emergencyContact'),
+                    emergencyRelationship: formData.get('emergencyRelationship'),
+                    emergencyPhone: formData.get('emergencyPhone'),
+                    additionalInfo: formData.get('additionalInfo')
+                };
+
+                // Save to Supabase
+                const result = await Database.saveDVEnrollment(data);
+
+                if (!result.success) {
+                    throw new Error(result.error);
+                }
+
+                // Show success message and redirect
+                alert('Thank you for your enrollment application. We will contact you within 48 hours to schedule your intake assessment.');
+                window.location.href = 'success.html?type=dv-enrollment';
+
+            } catch (error) {
+                console.error('Error submitting DV enrollment:', error);
+                alert('There was an error submitting your application. Please try again or call us at (402) 759-2210.');
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
         });
     </script>
 </body>

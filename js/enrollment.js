@@ -73,13 +73,16 @@ function saveEnrollmentData(formData) {
 }
 
 // Handle form submission
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize Supabase
+    await initializeSupabase();
+
     // Update plan summary on page load
     updatePlanSummary();
 
     const form = document.getElementById('enrollment-form');
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
         // Validate form
@@ -88,48 +91,71 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Get form data
-        const formData = new FormData(form);
-
-        // Save enrollment data
-        const enrollmentData = saveEnrollmentData(formData);
-
-        // Optional: Send to your backend/database (Supabase, etc.)
-        // await sendToDatabase(enrollmentData);
-
-        // Get the payment link for this plan
-        const planKey = getPlanFromURL();
-        const paymentLink = PLAN_CONFIG[planKey].paymentLink;
-
         // Show loading state
         const submitBtn = document.getElementById('submit-btn');
+        const originalText = submitBtn.textContent;
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Redirecting to payment...';
+        submitBtn.textContent = 'Processing...';
 
-        // Redirect to Stripe payment
-        window.location.href = paymentLink;
+        try {
+            // Get form data
+            const formData = new FormData(form);
+
+            // Save enrollment data to localStorage
+            const enrollmentData = saveEnrollmentData(formData);
+
+            // Save to Supabase database
+            await sendToDatabase(enrollmentData);
+
+            // Get the payment link for this plan
+            const planKey = getPlanFromURL();
+            const paymentLink = PLAN_CONFIG[planKey].paymentLink;
+
+            // Update loading state
+            submitBtn.textContent = 'Redirecting to payment...';
+
+            // Redirect to Stripe payment
+            window.location.href = paymentLink;
+
+        } catch (error) {
+            console.error('Error processing enrollment:', error);
+            alert('There was an error processing your enrollment. Please try again or contact us at (402) 759-2210.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        }
     });
 });
 
-// Optional: Function to send data to your backend
+// Function to send data to Supabase
 async function sendToDatabase(enrollmentData) {
     try {
-        // Example: Send to Supabase or your API
-        const response = await fetch('/api/enrollment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(enrollmentData)
-        });
+        // Parse name into first and last
+        const nameParts = enrollmentData.fullName.split(' ');
+        const firstName = nameParts[0];
+        const lastName = nameParts.slice(1).join(' ') || '';
 
-        if (!response.ok) {
-            throw new Error('Failed to save enrollment data');
+        // Prepare data for Supabase
+        const membershipData = {
+            firstName: firstName,
+            lastName: lastName,
+            email: enrollmentData.email,
+            phone: enrollmentData.phone,
+            organization: enrollmentData.organization,
+            membershipType: enrollmentData.plan,
+            billingFrequency: enrollmentData.plan.includes('yearly') ? 'yearly' : 'monthly'
+        };
+
+        // Save to Supabase using existing function
+        const result = await Database.saveMembershipEnrollment(membershipData);
+
+        if (!result.success) {
+            throw new Error(result.error);
         }
 
-        return await response.json();
+        return result;
     } catch (error) {
-        console.error('Error saving enrollment:', error);
+        console.error('Error saving enrollment to database:', error);
         // Continue anyway - data is saved in localStorage
+        // Don't throw error to prevent blocking the payment flow
     }
 }

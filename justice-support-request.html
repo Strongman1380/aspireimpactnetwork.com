@@ -199,9 +199,9 @@
 
                     <div class="emergency-notice" style="margin-top: 2rem; padding: 1.5rem; background: #fef2f2; border-left: 4px solid #ef4444; border-radius: 8px;">
                         <h3 style="color: #dc2626; margin-bottom: 0.5rem; font-size: 1.25rem;">Need Immediate Help?</h3>
-                        <p style="margin-bottom: 0.5rem; color: #1f2937;"><strong>Crisis Line:</strong> (402) 759-2210</p>
-                        <p style="margin-bottom: 0.5rem; color: #1f2937;"><strong>Emergency:</strong> Call 911</p>
-                        <p style="margin-bottom: 0; color: #1f2937;"><strong>National Domestic Violence Hotline:</strong> 1-800-799-7233</p>
+                        <p style="margin-bottom: 0.5rem; color: #e0ffe0;"><strong>Crisis Line:</strong> (402) 759-2210</p>
+                        <p style="margin-bottom: 0.5rem; color: #e0ffe0;"><strong>Emergency:</strong> Call 911</p>
+                        <p style="margin-bottom: 0; color: #e0ffe0;"><strong>National Domestic Violence Hotline:</strong> 1-800-799-7233</p>
                     </div>
                 </div>
             </div>
@@ -251,21 +251,62 @@
         </div>
     </footer>
 
+    <script src="js/supabase-config.js"></script>
     <script src="js/main.js"></script>
     <script>
         // Form submission handler
         document.getElementById('justiceSupportForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Here you would typically send to your backend
-            console.log('Justice Support Request:', data);
-            
-            // Show success message and redirect
-            alert('Thank you for your request. We will contact you within 24 hours.');
-            window.location.href = 'success.html?type=justice-support';
+
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+
+            // Show loading state
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
+
+            try {
+                // Initialize Supabase if not already done
+                if (!window.supabase) {
+                    await initializeSupabase();
+                }
+
+                const formData = new FormData(this);
+                const data = {
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    address: formData.get('address'),
+                    city: formData.get('city'),
+                    state: formData.get('state'),
+                    zip: formData.get('zip'),
+                    serviceType: formData.get('serviceType'),
+                    urgency: formData.get('urgency'),
+                    referralSource: formData.get('referralSource'),
+                    householdSize: formData.get('householdSize'),
+                    childrenAges: formData.get('childrenAges'),
+                    situation: formData.get('situation'),
+                    additionalNeeds: formData.get('additionalNeeds')
+                };
+
+                // Save to Supabase
+                const result = await Database.saveJusticeSupportRequest(data);
+
+                if (!result.success) {
+                    throw new Error(result.error);
+                }
+
+                // Show success message and redirect
+                alert('Thank you for your request. We will contact you within 24 hours.');
+                window.location.href = 'success.html?type=justice-support';
+
+            } catch (error) {
+                console.error('Error submitting justice support request:', error);
+                alert('There was an error submitting your request. Please try again or call us at (402) 759-2210.');
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
         });
     </script>
 </body>

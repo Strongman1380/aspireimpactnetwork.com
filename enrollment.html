@@ -10,12 +10,12 @@
         .enrollment-container {
             min-height: 70vh;
             padding: 4rem 0;
-            background: #f9fafb;
+            background: rgba(10, 15, 10, 0.5);
         }
         .enrollment-card {
             max-width: 600px;
             margin: 0 auto;
-            background: white;
+            background: rgba(15, 31, 15, 0.8);
             padding: 3rem;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -25,11 +25,11 @@
             margin-bottom: 2rem;
         }
         .enrollment-header h1 {
-            color: #1f2937;
+            color: #e0ffe0;
             margin-bottom: 0.5rem;
         }
         .plan-summary {
-            background: #f0fdf4;
+            background: rgba(15, 31, 15, 0.6);
             border: 2px solid #10b981;
             padding: 1.5rem;
             border-radius: 8px;
@@ -42,7 +42,7 @@
         .plan-summary .price {
             font-size: 2rem;
             font-weight: bold;
-            color: #1f2937;
+            color: #e0ffe0;
         }
         .form-group {
             margin-bottom: 1.5rem;
@@ -50,7 +50,7 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: #374151;
+            color: #e0ffe0;
             font-weight: 500;
         }
         .form-group input,
@@ -73,7 +73,7 @@
         .form-group small {
             display: block;
             margin-top: 0.25rem;
-            color: #6b7280;
+            color: #ccffcc;
             font-size: 0.875rem;
         }
         .required {
@@ -115,7 +115,7 @@
             display: block;
             text-align: center;
             margin-top: 1rem;
-            color: #6b7280;
+            color: #ccffcc;
             text-decoration: none;
         }
         .back-link:hover {
@@ -262,6 +262,7 @@
     </footer>
 
     <script src="https://js.stripe.com/v3/"></script>
+    <script src="js/supabase-config.js"></script>
     <script src="js/enrollment.js"></script>
     <script src="js/main.js"></script>
 </body>

@@ -110,16 +110,34 @@ const Database = {
                 .from('dv_enrollments')
                 .insert([{
                     first_name: enrollmentData.firstName,
+                    middle_name: enrollmentData.middleName || null,
                     last_name: enrollmentData.lastName,
                     email: enrollmentData.email,
                     phone: enrollmentData.phone,
-                    date_of_birth: enrollmentData.dateOfBirth,
-                    address: enrollmentData.address || null,
-                    emergency_contact: enrollmentData.emergencyContact || null,
-                    referral_source: enrollmentData.referralSource || null,
-                    court_ordered: enrollmentData.courtOrdered || false,
-                    case_number: enrollmentData.caseNumber || null,
+                    date_of_birth: enrollmentData.dob,
+                    ssn_last_4: enrollmentData.ssn || null,
+                    address: enrollmentData.address,
+                    city: enrollmentData.city,
+                    state: enrollmentData.state,
+                    zip: enrollmentData.zip,
+                    enrollment_type: enrollmentData.enrollmentType,
+                    court_info: enrollmentData.courtInfo || null,
                     probation_officer: enrollmentData.probationOfficer || null,
+                    probation_contact: enrollmentData.probationContact || null,
+                    attorney: enrollmentData.attorney || null,
+                    attorney_contact: enrollmentData.attorneyContact || null,
+                    preferred_schedule: enrollmentData.preferredSchedule,
+                    class_format: enrollmentData.classFormat,
+                    employment_status: enrollmentData.employmentStatus || null,
+                    insurance: enrollmentData.insurance || null,
+                    payment_ability: enrollmentData.paymentAbility || null,
+                    prior_treatment: enrollmentData.priorTreatment || null,
+                    substance_use: enrollmentData.substanceUse || null,
+                    mental_health: enrollmentData.mentalHealth || null,
+                    emergency_contact: enrollmentData.emergencyContact,
+                    emergency_relationship: enrollmentData.emergencyRelationship,
+                    emergency_phone: enrollmentData.emergencyPhone,
+                    additional_info: enrollmentData.additionalInfo || null,
                     created_at: new Date().toISOString()
                 }]);
 
@@ -127,6 +145,73 @@ const Database = {
             return { success: true, data };
         } catch (error) {
             console.error('Error saving DV enrollment:', error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Save justice support request
+    async saveJusticeSupportRequest(requestData) {
+        try {
+            const { data, error } = await supabase
+                .from('justice_support_requests')
+                .insert([{
+                    first_name: requestData.firstName,
+                    last_name: requestData.lastName,
+                    email: requestData.email,
+                    phone: requestData.phone,
+                    address: requestData.address || null,
+                    city: requestData.city,
+                    state: requestData.state,
+                    zip: requestData.zip,
+                    service_type: requestData.serviceType,
+                    urgency: requestData.urgency,
+                    referral_source: requestData.referralSource || null,
+                    household_size: requestData.householdSize || null,
+                    children_ages: requestData.childrenAges || null,
+                    situation: requestData.situation,
+                    additional_needs: requestData.additionalNeeds || null,
+                    created_at: new Date().toISOString()
+                }]);
+
+            if (error) throw error;
+            return { success: true, data };
+        } catch (error) {
+            console.error('Error saving justice support request:', error);
+            return { success: false, error: error.message };
+        }
+    },
+
+    // Save comprehensive membership signup
+    async saveMembershipSignup(signupData) {
+        try {
+            const { data, error } = await supabase
+                .from('membership_signups')
+                .insert([{
+                    membership_tier: signupData.membershipTier,
+                    first_name: signupData.firstName,
+                    last_name: signupData.lastName,
+                    email: signupData.email,
+                    phone: signupData.phone || null,
+                    organization: signupData.organization || null,
+                    role: signupData.role || null,
+                    industry: signupData.industry,
+                    city: signupData.city,
+                    state: signupData.state,
+                    country: signupData.country,
+                    interests: signupData.interests || [],
+                    goals: signupData.goals || null,
+                    expertise: signupData.expertise || null,
+                    referral_source: signupData.referralSource || null,
+                    referral_details: signupData.referralDetails || null,
+                    newsletter_signup: signupData.newsletter || false,
+                    directory_listing: signupData.directory || false,
+                    created_at: new Date().toISOString()
+                }]);
+
+            if (error) throw error;
+            return { success: true, data };
+        } catch (error) {
+            console.error('Error saving membership signup:', error);
             return { success: false, error: error.message };
         }
     },

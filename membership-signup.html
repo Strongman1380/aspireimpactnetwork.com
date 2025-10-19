@@ -61,23 +61,23 @@
         </section>
 
         <!-- Membership Tiers Overview -->
-        <section class="membership-tiers" style="padding: 2rem 0; background: #f9fafb;">
+        <section class="membership-tiers" style="padding: 2rem 0; background: rgba(10, 15, 10, 0.5);">
             <div class="container">
                 <div class="tiers-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
-                    <div class="tier-card" style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+                    <div class="tier-card" style="background: rgba(15, 31, 15, 0.8); padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
                         <h3 style="color: #10b981; margin-bottom: 0.5rem;">Basic</h3>
                         <p class="price" style="font-size: 2rem; font-weight: bold; margin: 0.5rem 0;">FREE</p>
-                        <p style="margin: 0; color: #6b7280;">Community Access</p>
+                        <p style="margin: 0; color: #ccffcc;">Community Access</p>
                     </div>
-                    <div class="tier-card" style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; border: 2px solid #10b981;">
+                    <div class="tier-card" style="background: rgba(15, 31, 15, 0.8); padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; border: 2px solid #10b981;">
                         <h3 style="color: #10b981; margin-bottom: 0.5rem;">Premier</h3>
                         <p class="price" style="font-size: 2rem; font-weight: bold; margin: 0.5rem 0;">$25/mo</p>
-                        <p style="margin: 0; color: #6b7280;">Training Modules</p>
+                        <p style="margin: 0; color: #ccffcc;">Training Modules</p>
                     </div>
-                    <div class="tier-card" style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
+                    <div class="tier-card" style="background: rgba(15, 31, 15, 0.8); padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center;">
                         <h3 style="color: #10b981; margin-bottom: 0.5rem;">Pro</h3>
                         <p class="price" style="font-size: 2rem; font-weight: bold; margin: 0.5rem 0;">$35/mo</p>
-                        <p style="margin: 0; color: #6b7280;">1:1 Consultations</p>
+                        <p style="margin: 0; color: #ccffcc;">1:1 Consultations</p>
                     </div>
                 </div>
             </div>
@@ -105,9 +105,9 @@
                             </select>
                         </div>
 
-                        <div id="tierBenefits" style="display: none; margin-bottom: 2rem; padding: 1.5rem; background: #f0fdf4; border-radius: 8px; border-left: 4px solid #10b981;">
+                        <div id="tierBenefits" style="display: none; margin-bottom: 2rem; padding: 1.5rem; background: rgba(15, 31, 15, 0.6); border-radius: 8px; border-left: 4px solid #10b981;">
                             <h3 style="color: #10b981; margin-bottom: 1rem;">Your Membership Includes:</h3>
-                            <ul id="benefitsList" style="margin: 0; padding-left: 1.5rem; color: #374151;">
+                            <ul id="benefitsList" style="margin: 0; padding-left: 1.5rem; color: #e0ffe0;">
                             </ul>
                         </div>
 
@@ -262,7 +262,7 @@
                             <p class="form-note" id="formNote">You'll be redirected to payment for paid memberships</p>
                         </div>
 
-                        <a href="membership.html" style="display: block; text-align: center; margin-top: 1rem; color: #6b7280; text-decoration: none;">← Back to Membership Plans</a>
+                        <a href="membership.html" style="display: block; text-align: center; margin-top: 1rem; color: #ccffcc; text-decoration: none;">← Back to Membership Plans</a>
                     </form>
                 </div>
             </div>
@@ -312,6 +312,7 @@
         </div>
     </footer>
 
+    <script src="js/supabase-config.js"></script>
     <script src="js/main.js"></script>
     <script>
         // Pre-select tier from URL parameter
@@ -360,13 +361,13 @@
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const formNote = document.getElementById('formNote');
-            
+
             if (tier && tierBenefits[tier]) {
-                benefitsList.innerHTML = tierBenefits[tier].map(benefit => 
+                benefitsList.innerHTML = tierBenefits[tier].map(benefit =>
                     `<li style="margin-bottom: 0.5rem;">${benefit}</li>`
                 ).join('');
                 benefitsDiv.style.display = 'block';
-                
+
                 // Update button text based on tier
                 if (tier === 'basic') {
                     btnText.textContent = 'Create Free Account';
@@ -383,29 +384,70 @@
         // Form submission handler
         document.getElementById('membershipSignupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Collect all checked interests
-            const interests = Array.from(document.querySelectorAll('input[name="interests[]"]:checked'))
-                .map(cb => cb.value);
-            data.interests = interests;
-            
-            // Here you would typically send to your backend
-            console.log('Membership Signup:', data);
-            
-            const tier = data.membershipTier;
-            
-            if (tier === 'basic') {
-                // Free membership - create account directly
-                alert('Welcome to Aspire Impact Network! Check your email for login details.');
-                window.location.href = 'success.html?type=membership-basic';
-            } else {
-                // Paid membership - redirect to payment
-                alert('Redirecting to secure payment...');
-                // In production, this would redirect to Stripe or your payment processor
-                window.location.href = `enrollment.html?plan=${tier}`;
+
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const originalText = btnText.textContent;
+
+            // Show loading state
+            btnText.textContent = 'Processing...';
+            submitBtn.disabled = true;
+
+            try {
+                // Initialize Supabase if not already done
+                if (!window.supabase) {
+                    await initializeSupabase();
+                }
+
+                const formData = new FormData(this);
+
+                // Collect all checked interests
+                const interests = Array.from(document.querySelectorAll('input[name="interests[]"]:checked'))
+                    .map(cb => cb.value);
+
+                const data = {
+                    membershipTier: formData.get('membershipTier'),
+                    firstName: formData.get('firstName'),
+                    lastName: formData.get('lastName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    organization: formData.get('organization'),
+                    role: formData.get('role'),
+                    industry: formData.get('industry'),
+                    city: formData.get('city'),
+                    state: formData.get('state'),
+                    country: formData.get('country'),
+                    interests: interests,
+                    goals: formData.get('goals'),
+                    expertise: formData.get('expertise'),
+                    referralSource: formData.get('referralSource'),
+                    referralDetails: formData.get('referralDetails'),
+                    newsletter: formData.get('newsletter') === 'on',
+                    directory: formData.get('directory') === 'on'
+                };
+
+                // Save to Supabase
+                const result = await Database.saveMembershipSignup(data);
+
+                if (!result.success) {
+                    throw new Error(result.error);
+                }
+
+                const tier = data.membershipTier;
+
+                if (tier === 'basic') {
+                    // Free membership - create account directly
+                    alert('Welcome to Aspire Impact Network! Check your email for login details.');
+                    window.location.href = 'success.html?type=membership-basic';
+                } else {
+                    // Paid membership - redirect to payment
+                    window.location.href = `enrollment.html?plan=${tier}`;
+                }
+            } catch (error) {
+                console.error('Error submitting membership signup:', error);
+                alert('There was an error processing your signup. Please try again or contact us directly.');
+                btnText.textContent = originalText;
+                submitBtn.disabled = false;
             }
         });
     </script>

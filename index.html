@@ -116,19 +116,102 @@
         <section class="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <h1 class="hero-title">Empowering People. Elevating Business. Creating Impact.</h1>
-                    <p class="hero-subtitle">Where justice support and digital innovation come together to transform lives and communities.</p>
+                    <h1 class="hero-title">Empowering People. <span class="text-glow">Elevating Business.</span> Creating Impact.</h1>
+                    <p class="hero-subtitle">Where justice support and digital innovation come together to transform lives and communities across the globe.</p>
                     <div class="hero-cta">
                         <a href="justice-support.html" class="btn btn-primary">Explore Justice Support Programs</a>
                         <a href="digital-solutions.html" class="btn btn-secondary">Explore Digital Solutions</a>
                         <a href="membership.html" class="btn btn-outline">Join Our Membership Community</a>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <img src="images/hero-image.png" 
-                         alt="Digital Innovation Network - Futuristic technology interface showcasing advanced digital solutions and AI automation" 
-                         class="hero-tech-image" 
-                         loading="eager">
+                <div class="hero-globe">
+                    <div class="globe-container">
+                        <div class="globe-glow"></div>
+                        <!-- Try loading the image, fallback to SVG if it fails -->
+                        <img src="images/Screenshot%202025-03-27%20at%2010.51.59%20PM.png"
+                             alt="Global Impact Network - Connecting Communities Worldwide Through Technology"
+                             class="globe-image"
+                             loading="eager"
+                             onerror="this.style.display='none'; document.getElementById('globe-svg-fallback').style.display='block';">
+
+                        <!-- SVG Fallback Globe -->
+                        <svg id="globe-svg-fallback" class="globe-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <defs>
+                                <radialGradient id="globeGlow">
+                                    <stop offset="0%" style="stop-color:#00ff41;stop-opacity:0.8" />
+                                    <stop offset="50%" style="stop-color:#00ff41;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#00ff41;stop-opacity:0" />
+                                </radialGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- Glow background -->
+                            <circle cx="200" cy="200" r="150" fill="url(#globeGlow)" opacity="0.3" class="pulse"/>
+
+                            <!-- Main globe circle -->
+                            <circle cx="200" cy="200" r="100" fill="none" stroke="#00ff41" stroke-width="2" opacity="0.5"/>
+
+                            <!-- Latitude lines -->
+                            <ellipse cx="200" cy="200" rx="100" ry="20" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+                            <ellipse cx="200" cy="200" rx="100" ry="40" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+                            <ellipse cx="200" cy="200" rx="100" ry="60" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+                            <ellipse cx="200" cy="200" rx="100" ry="80" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+
+                            <!-- Longitude lines -->
+                            <ellipse cx="200" cy="200" rx="20" ry="100" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+                            <ellipse cx="200" cy="200" rx="40" ry="100" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+                            <ellipse cx="200" cy="200" rx="60" ry="100" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+                            <ellipse cx="200" cy="200" rx="80" ry="100" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.5"/>
+
+                            <!-- Connection dots (animated) -->
+                            <circle cx="150" cy="180" r="3" fill="#00ff41" filter="url(#glow)">
+                                <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="220" cy="160" r="3" fill="#00ffaa" filter="url(#glow)">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="180" cy="230" r="3" fill="#39ff14" filter="url(#glow)">
+                                <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="240" cy="210" r="3" fill="#00ff41" filter="url(#glow)">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="170" cy="200" r="2" fill="#00ffaa" filter="url(#glow)">
+                                <animate attributeName="opacity" values="1;0.4;1" dur="2.8s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle cx="230" cy="190" r="2" fill="#39ff14" filter="url(#glow)">
+                                <animate attributeName="opacity" values="0.4;1;0.4" dur="3.2s" repeatCount="indefinite"/>
+                            </circle>
+
+                            <!-- Rotating outer ring -->
+                            <circle cx="200" cy="200" r="120" fill="none" stroke="#00ff41" stroke-width="0.5" opacity="0.3" stroke-dasharray="5,10">
+                                <animateTransform
+                                    attributeName="transform"
+                                    type="rotate"
+                                    from="0 200 200"
+                                    to="360 200 200"
+                                    dur="20s"
+                                    repeatCount="indefinite"/>
+                            </circle>
+
+                            <!-- Inner rotating ring -->
+                            <circle cx="200" cy="200" r="90" fill="none" stroke="#00ffaa" stroke-width="0.5" opacity="0.2" stroke-dasharray="3,7">
+                                <animateTransform
+                                    attributeName="transform"
+                                    type="rotate"
+                                    from="360 200 200"
+                                    to="0 200 200"
+                                    dur="15s"
+                                    repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </section>
