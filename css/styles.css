@@ -3654,6 +3654,7 @@ body::before {
     background: linear-gradient(135deg, var(--neon-green) 0%, var(--primary-green) 100%);
     box-shadow: var(--glow-green-intense);
     transform: translateY(-2px);
+    color: var(--darker-bg);
 }
 
 .btn-secondary {

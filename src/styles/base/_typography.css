@@ -1,0 +1,29 @@
+/* Typography and Base Text Styles */
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-light);
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+    background-attachment: fixed;
+    font-weight: var(--font-weight-normal);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 170, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(57, 255, 20, 0.1) 0%, transparent 50%);
+    animation: floating 20s ease-in-out infinite;
+    z-index: -1;
+    pointer-events: none;
+}
